@@ -1,6 +1,7 @@
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { Inter as FontSans } from "next/font/google"
-import { cn } from "@/lib/utils"
 import type { Metadata } from "next";
+import { cn } from "@/lib/utils"
 import "./globals.css";
 
 const fontSans = FontSans({
@@ -24,7 +25,9 @@ export default function RootLayout({
         "min-h-screen bg-background font-sans antialiased",
         fontSans.variable
       )}>
-        {children}
+        <ConvexClientProvider>
+          {children}
+        </ConvexClientProvider>
       </body>
     </html>
   );
