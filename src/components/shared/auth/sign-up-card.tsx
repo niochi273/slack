@@ -18,8 +18,16 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { z } from "zod";
 import clsx from "clsx";
 import Link from "next/link";
+import { useState } from "react";
 
 export const SignUpCard = () => {
+	const { signIn } = useAuthActions();
+	const [pending, setPending] = useState<boolean>(false)
+	const handleProviderSignIn = (provider: "github" | "google") => {
+		setPending(true)
+		signIn(provider).finally(() => setPending(false))
+	}
+
 	const form = useForm({
 		defaultValues: {
 			email: "",
@@ -64,7 +72,7 @@ export const SignUpCard = () => {
 							<>
 								<Input
 									name={field.name}
-									disabled={false}
+									disabled={pending}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
@@ -102,7 +110,7 @@ export const SignUpCard = () => {
 							<>
 								<Input
 									name={field.name}
-									disabled={false}
+									disabled={pending}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
@@ -144,7 +152,7 @@ export const SignUpCard = () => {
 							<>
 								<Input
 									name={field.name}
-									disabled={false}
+									disabled={pending}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
@@ -178,7 +186,7 @@ export const SignUpCard = () => {
 								type="submit"
 								className="w-full"
 								size="lg"
-								disabled={!canSubmit}
+								disabled={!canSubmit || pending}
 							>
 								{isSubmitting ? "..." : "Continue"}
 							</Button>
@@ -188,8 +196,8 @@ export const SignUpCard = () => {
 				<Separator />
 				<div className="flex flex-col gap-y-2.5">
 					<Button
-						disabled={false}
-						onClick={() => { }}
+						disabled={pending}
+						onClick={() => handleProviderSignIn("google")}
 						variant="outline"
 						size="lg"
 						className="w-full"
@@ -200,8 +208,8 @@ export const SignUpCard = () => {
 						</div>
 					</Button>
 					<Button
-						disabled={false}
-						onClick={() => { }}
+						disabled={pending}
+						onClick={() => handleProviderSignIn("github")}
 						variant="outline"
 						size="lg"
 						className="w-full"

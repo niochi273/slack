@@ -18,12 +18,14 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { z } from "zod";
 import clsx from "clsx";
 import Link from "next/link";
+import { useState } from "react";
 
 export const SignInCard = () => {
 	const { signIn } = useAuthActions();
-
+	const [pending, setPending] = useState<boolean>(false)
 	const handleProviderSignIn = (provider: "github" | "google") => {
-		signIn(provider)
+		setPending(true)
+		signIn(provider).finally(() => setPending(false))
 	}
 
 	const form = useForm({
@@ -68,7 +70,7 @@ export const SignInCard = () => {
 							<>
 								<Input
 									name={field.name}
-									disabled={false}
+									disabled={pending}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
@@ -106,7 +108,7 @@ export const SignInCard = () => {
 							<>
 								<Input
 									name={field.name}
-									disabled={false}
+									disabled={pending}
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
@@ -140,7 +142,7 @@ export const SignInCard = () => {
 								type="submit"
 								className="w-full"
 								size="lg"
-								disabled={!canSubmit}
+								disabled={!canSubmit || pending}
 							>
 								{isSubmitting ? "..." : "Continue"}
 							</Button>
@@ -150,8 +152,8 @@ export const SignInCard = () => {
 				<Separator />
 				<div className="flex flex-col gap-y-2.5">
 					<Button
-						disabled={false}
-						onClick={() => { }}
+						disabled={pending}
+						onClick={() => handleProviderSignIn('google')}
 						variant="outline"
 						size="lg"
 						className="w-full"
@@ -160,7 +162,7 @@ export const SignInCard = () => {
 						<div className="ml-2">Continue with Google</div>
 					</Button>
 					<Button
-						disabled={false}
+						disabled={pending}
 						onClick={() => handleProviderSignIn('github')}
 						variant="outline"
 						size="lg"
