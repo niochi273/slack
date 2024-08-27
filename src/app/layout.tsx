@@ -1,3 +1,4 @@
+import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { Inter as FontSans } from "next/font/google"
 import type { Metadata } from "next";
@@ -20,15 +21,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        fontSans.variable
-      )}>
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
-      </body>
-    </html>
+    <ConvexAuthNextjsServerProvider>
+      <html lang="en">
+        <body className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}>
+          <ConvexClientProvider>
+            {children}
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ConvexAuthNextjsServerProvider>
   );
 }

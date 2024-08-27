@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Card,
 	CardHeader,
@@ -12,16 +14,12 @@ import { Separator } from "@/components/ui/separator";
 import { useForm } from "@tanstack/react-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { SignInFlow } from "@/lib/types";
-import { FC } from "react";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { z } from "zod";
 import clsx from "clsx";
+import Link from "next/link";
 
-interface SignUpCardProps {
-	setState: (state: SignInFlow) => void
-}
-
-export const SignUpCard: FC<SignUpCardProps> = ({ setState }) => {
+export const SignUpCard = () => {
 	const form = useForm({
 		defaultValues: {
 			email: "",
@@ -216,11 +214,11 @@ export const SignUpCard: FC<SignUpCardProps> = ({ setState }) => {
 				</div>
 				<p className="text-sm text-muted-foreground text-center">
 					Already have an account?
-					<span
-						onClick={() => setState("signIn")}
+					<Link
+						href="/auth/signin"
 						className="text-sky-500 hover:underline cursor-pointer ml-2">
 						Sign In
-					</span>
+					</Link>
 				</p>
 			</CardContent>
 		</Card>

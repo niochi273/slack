@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Card,
 	CardHeader,
@@ -6,23 +8,24 @@ import {
 	CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { SignInFlow } from "@/lib/types";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
-import { FC } from "react";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { z } from "zod";
 import clsx from "clsx";
+import Link from "next/link";
 
-interface SignInCardProps {
-	setState: (state: SignInFlow) => void;
-}
+export const SignInCard = () => {
+	const { signIn } = useAuthActions();
 
-export const SignInCard: FC<SignInCardProps> = ({ setState }) => {
+	const handleProviderSignIn = (provider: "github" | "google") => {
+		signIn(provider)
+	}
+
 	const form = useForm({
 		defaultValues: {
 			email: "",
@@ -158,7 +161,7 @@ export const SignInCard: FC<SignInCardProps> = ({ setState }) => {
 					</Button>
 					<Button
 						disabled={false}
-						onClick={() => { }}
+						onClick={() => handleProviderSignIn('github')}
 						variant="outline"
 						size="lg"
 						className="w-full"
@@ -169,12 +172,12 @@ export const SignInCard: FC<SignInCardProps> = ({ setState }) => {
 				</div>
 				<p className="text-sm text-muted-foreground text-center">
 					Don&apos;t have an account?
-					<span
-						onClick={() => setState("signUp")}
+					<Link
+						href="/auth/signup"
 						className="text-sky-500 hover:underline cursor-pointer ml-2"
 					>
 						Sign Up
-					</span>
+					</Link>
 				</p>
 			</CardContent>
 		</Card>
