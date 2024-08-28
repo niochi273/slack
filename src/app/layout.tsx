@@ -2,6 +2,7 @@ import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { Inter as FontSans } from "next/font/google"
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils"
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         )}>
           <ConvexClientProvider>
             {children}
+            <Toaster richColors />
           </ConvexClientProvider>
         </body>
       </html>
