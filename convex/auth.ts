@@ -3,7 +3,19 @@ import Google from "@auth/core/providers/google";
 import { Password } from "@convex-dev/auth/providers/Password";
 import { convexAuth } from "@convex-dev/auth/server";
 import { ResendOTPPasswordReset } from "./ResendOTPPasswordReset";
+import {} from "@convex-dev/auth/providers/Password";
+import { DataModel } from "./_generated/dataModel";
+
+const CustomPassword = Password<DataModel>({
+  reset: ResendOTPPasswordReset,
+  profile(params) {
+    return {
+      email: params.email as string,
+      name: params.name as string,
+    };
+  },
+});
 
 export const { auth, signIn, signOut, store } = convexAuth({
-  providers: [Password({ reset: ResendOTPPasswordReset }), GitHub, Google],
+  providers: [CustomPassword, GitHub, Google],
 });

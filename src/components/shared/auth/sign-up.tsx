@@ -30,22 +30,22 @@ export const SignUpCard = () => {
 	const { signIn } = useAuthActions();
 	const handleProviderSignIn = (provider: "github" | "google") => {
 		setPending(true)
-		signIn(provider).finally(() => setPending(false))
+		signIn(provider, { redirectTo: "/" }).finally(() => setPending(false))
 	}
 
 	const { handleSubmit, Subscribe, Field } = useForm({
 		defaultValues: {
+			name: "",
 			email: "",
 			password: "",
 			confirm_password: ""
 		},
 		validatorAdapter: zodValidator(),
 		onSubmit: async ({ value }) => {
-			const { email, password } = value
 			setPending(true)
 			setError("")
 
-			signIn("password", { email, password, flow: "signUp", redirectTo: "/dashboard" })
+			signIn("password", { ...value, flow: "signUp", redirectTo: '/' })
 				.catch(() => setError("Something went wrong"))
 				.finally(() => setPending(false))
 		},
@@ -62,7 +62,7 @@ export const SignUpCard = () => {
 				</CardDescription>
 			</CardHeader>
 			{error && (
-				<div className="bg-destructive/15 px-3 py-2.5 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
+				<div className="bg-destructive/15 p-3 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
 					<TriangleAlert size={20} />
 					<p>{error}</p>
 				</div>
@@ -78,6 +78,42 @@ export const SignUpCard = () => {
 					}}
 				>
 					<Field
+						name="name"
+						validators={{
+							onSubmit: z
+								.string()
+								.min(1, "Name is required")
+								.max(40, "Name must contain at most 40 characters")
+						}}
+					>
+						{(field) => (
+							<>
+								<Input
+									placeholder="Full name"
+									name={field.name}
+									disabled={pending}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									required
+									className={clsx(
+										"focus-visible:ring-0 focus-visible:ring-offset-0",
+										{
+											"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
+										}
+									)}
+								/>
+								{field.state.meta.errorMap.onSubmit &&
+									typeof field.state.meta.errorMap.onSubmit ===
+									"string" ? (
+									<em className="text-red-500 text-sm">
+										{field.state.meta.errorMap.onSubmit.split(", ")[0]}
+									</em>
+								) : null}
+							</>
+						)}
+					</Field>
+					<Field
 						name="email"
 						validators={{
 							onSubmit: z
@@ -89,24 +125,22 @@ export const SignUpCard = () => {
 					>
 						{(field) => (
 							<>
-								<div className="relative">
-									<Input
-										type="email"
-										placeholder="Email"
-										name={field.name}
-										disabled={pending}
-										value={field.state.value}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-										required
-										className={clsx(
-											"focus-visible:ring-0 focus-visible:ring-offset-0",
-											{
-												"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
-											}
-										)}
-									/>
-								</div>
+								<Input
+									type="email"
+									placeholder="Email"
+									name={field.name}
+									disabled={pending}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									required
+									className={clsx(
+										"focus-visible:ring-0 focus-visible:ring-offset-0",
+										{
+											"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
+										}
+									)}
+								/>
 								{field.state.meta.errorMap.onSubmit &&
 									typeof field.state.meta.errorMap.onSubmit ===
 									"string" ? (

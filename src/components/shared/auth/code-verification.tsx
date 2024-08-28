@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dialog"
 import { zodValidator } from "@tanstack/zod-form-adapter"
 import { useAuthActions } from "@convex-dev/auth/react"
-import { Dispatch, FC, SetStateAction } from "react"
+import { Dispatch, FC, SetStateAction, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { REGEXP_ONLY_DIGITS } from "input-otp"
 import { useForm } from "@tanstack/react-form"
@@ -32,6 +32,7 @@ import { redirect, useRouter } from "next/navigation"
 import { Step } from "@/lib/types"
 import clsx from "clsx"
 import { z } from "zod"
+import { Eye, EyeOff } from "lucide-react"
 
 interface CodeVerificationFormProps {
 	email: string
@@ -41,6 +42,8 @@ interface CodeVerificationFormProps {
 export const CodeVerificationForm: FC<CodeVerificationFormProps> = ({ email, setStep }) => {
 	const { signIn } = useAuthActions()
 	const router = useRouter()
+	const passwordRef = useRef<HTMLInputElement | null>(null)
+	const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
 
 	const { handleSubmit, Subscribe, Field } = useForm({
 		validatorAdapter: zodValidator(),
@@ -127,6 +130,7 @@ export const CodeVerificationForm: FC<CodeVerificationFormProps> = ({ email, set
 							{(field) => (
 								<div className="w-[280px] flex flex-col">
 									<Input
+										ref={passwordRef}
 										type="password"
 										placeholder="New password"
 										name={field.name}
@@ -135,12 +139,34 @@ export const CodeVerificationForm: FC<CodeVerificationFormProps> = ({ email, set
 										onChange={(e) => field.handleChange(e.target.value)}
 										required
 										className={clsx(
-											"focus-visible:ring-0 focus-visible:ring-offset-0",
+											"focus-visible:ring-0 focus-visible:ring-offset-0 pr-10",
 											{
 												"border-red-500": field.state.meta.errors.length,
 											}
 										)}
 									/>
+									{passwordRef.current && passwordRef.current.value ? (
+										<>
+											{isPasswordVisible ?
+												<Eye
+													size={20}
+													className="absolute right-[10px] top-[11px] cursor-pointer text-gray-400 hover:text-gray-500 transition-colors"
+													onClick={(e) => {
+														e.preventDefault();
+														setIsPasswordVisible(false)
+													}}
+												/> :
+												<EyeOff
+													size={20}
+													className="absolute right-[10px] top-[11px] cursor-pointer text-gray-400 hover:text-gray-500 transition-colors"
+													onClick={(e) => {
+														e.preventDefault();
+														setIsPasswordVisible(true)
+													}}
+												/>
+											}
+										</>
+									) : null}
 									{field.state.meta.errors.length > 0 &&
 										typeof field.state.meta.errors[0] ===
 										"string" ? (

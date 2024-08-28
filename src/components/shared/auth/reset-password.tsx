@@ -66,7 +66,7 @@ export const ResetPassword = () => {
 				</CardDescription>
 			</CardHeader >
 			{error && (
-				<div className="bg-destructive/15 px-3 py-2.5 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
+				<div className="bg-destructive/15 p-3 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
 					<TriangleAlert size={20} />
 					<p>{error}</p>
 				</div>

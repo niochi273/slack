@@ -1,9 +1,6 @@
-import Link from "next/link"
+
+import { UserButton } from "@/components/shared/auth/user-button"
 
 export default function Home() {
-  return <div>
-    <div>Home</div>
-    <Link href="/auth/signin">Sign In</Link>
-    <Link href="/auth/signup">Sign Up</Link>
-  </div>
+  return <UserButton />
 }

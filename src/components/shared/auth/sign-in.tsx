@@ -31,7 +31,7 @@ export const SignInCard = () => {
 	const { signIn } = useAuthActions();
 	const handleProviderSignIn = (provider: "github" | "google") => {
 		setPending(true)
-		signIn(provider, { redirectTo: "/dashboard" }).finally(() => setPending(false))
+		signIn(provider, { redirectTo: "/" }).finally(() => setPending(false))
 	}
 
 	const { handleSubmit, Subscribe, Field } = useForm({
@@ -45,7 +45,7 @@ export const SignInCard = () => {
 			setPending(true)
 			setError("")
 
-			signIn("password", { email, password, flow: "signIn" })
+			signIn("password", { email, password, flow: "signIn", redirectTo: "/" })
 				.catch(() => setError("Invalid email or password"))
 				.finally(() => setPending(false))
 		},
@@ -60,15 +60,15 @@ export const SignInCard = () => {
 				</CardDescription>
 			</CardHeader>
 			{error && (
-				<div className="bg-destructive/15 px-3 py-2.5 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
+				<div className="bg-destructive/15 p-3 rounded flex items-center gap-x-2 text-sm text-destructive mb-4">
 					<TriangleAlert size={20} />
 					<p>{error}</p>
 				</div>
 			)}
 			<CardContent className="space-y-5 px-0 pb-0">
 				<form
-					className="space-y-2.5"
 					noValidate
+					className="space-y-2.5"
 					onSubmit={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
@@ -87,24 +87,22 @@ export const SignInCard = () => {
 					>
 						{(field) => (
 							<>
-								<div className="relative">
-									<Input
-										type="email"
-										placeholder="Email"
-										name={field.name}
-										disabled={pending}
-										value={field.state.value}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-										required
-										className={clsx(
-											"focus-visible:ring-0 focus-visible:ring-offset-0",
-											{
-												"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
-											}
-										)}
-									/>
-								</div>
+								<Input
+									type="email"
+									placeholder="Email"
+									name={field.name}
+									disabled={pending}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									required
+									className={clsx(
+										"focus-visible:ring-0 focus-visible:ring-offset-0",
+										{
+											"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
+										}
+									)}
+								/>
 								{field.state.meta.errorMap.onSubmit &&
 									typeof field.state.meta.errorMap.onSubmit ===
 									"string" ? (
