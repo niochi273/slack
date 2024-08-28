@@ -1,7 +1,6 @@
 import Resend from "@auth/core/providers/resend";
 import { Resend as ResendAPI } from "resend";
 import { alphabet, generateRandomString } from "oslo/crypto";
-import Email from "@/app/emails";
 // import SlackConfirmEmail from "@/components/shared/auth/email-template";
 
 export const ResendOTPPasswordReset = Resend({
