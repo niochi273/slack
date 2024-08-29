@@ -16,12 +16,13 @@ import { Input } from "@/components/ui/input";
 import { IoArrowBack } from "react-icons/io5";
 import { TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { PulseLoader } from 'react-spinners'
-import { Step } from "@/lib/types";
 import { useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import clsx from "clsx";
+
+export type Step = "forgot" | { email: string };
 
 export const ResetPassword = () => {
 	const [step, setStep] = useState<Step>("forgot");
@@ -36,13 +37,14 @@ export const ResetPassword = () => {
 			email: ""
 		},
 		onSubmit: ({ value }) => {
+			setError("")
 			setPending(true)
 			signIn("password", { ...value, flow: "reset" })
 				.then(() => {
 					toast.success("Code was successfully sent!")
 					setStep(value)
 				})
-				.catch(() => setError("Email doesn't exist"))
+				.catch(() => setError("Email was not found"))
 				.finally(() => setPending(false))
 		}
 	})
@@ -122,27 +124,24 @@ export const ResetPassword = () => {
 					<Subscribe
 						selector={(state) => [
 							state.canSubmit,
-							state.isSubmitting,
 						]}
 					>
-						{([canSubmit, isSubmitting]) => (
+						{([canSubmit]) => (
 							<Button
 								type="submit"
 								className="w-full"
 								size="lg"
-								disabled={!canSubmit || pending}
+								disabled={pending || !canSubmit}
 							>
-								{isSubmitting || pending ?
+								{pending ?
 									<PulseLoader
 										color="white"
-										loading={pending}
-										size={10}
+										loading={true}
+										size={8}
 										aria-label="Loading Spinner"
 										data-testid="loader"
 									/>
-									:
-									"Send code"
-								}
+									: "Sign In"}
 							</Button>
 						)}
 					</Subscribe>

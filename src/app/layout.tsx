@@ -1,10 +1,11 @@
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
-import { ConvexClientProvider } from "@/components/convex-client-provider";
+import { ConvexClientProvider } from "@/components/providers/convex-client-provider";
 import { Inter as FontSans } from "next/font/google"
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils"
 import "./globals.css";
+import { Modals } from "@/components/shared/modals";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
           fontSans.variable
         )}>
           <ConvexClientProvider>
+            <Modals />
             {children}
             <Toaster richColors />
           </ConvexClientProvider>

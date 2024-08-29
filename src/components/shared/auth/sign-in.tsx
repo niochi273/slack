@@ -8,24 +8,25 @@ import {
 	CardTitle,
 	CardFooter
 } from "@/components/ui/card";
+import { Eye, EyeOff, TriangleAlert } from "lucide-react"
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { Eye, EyeOff, TriangleAlert } from "lucide-react"
 import { Input } from "@/components/ui/input";
+import { PulseLoader } from "react-spinners";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import clsx from "clsx";
 import { z } from "zod";
-import { PulseLoader } from "react-spinners";
+import clsx from "clsx";
 
 export const SignInCard = () => {
 	const [pending, setPending] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 	const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+	const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 	const passwordRef = useRef<HTMLInputElement | null>(null)
 
 	const { signIn } = useAuthActions();
@@ -78,7 +79,7 @@ export const SignInCard = () => {
 					<Field
 						name="email"
 						validators={{
-							onSubmit: z
+							[isSubmitted ? 'onChange' : 'onSubmit']: z
 								.string()
 								.min(1, "Email is required")
 								.max(40, "Email must contain at most 40 characters")
@@ -99,15 +100,15 @@ export const SignInCard = () => {
 									className={clsx(
 										"focus-visible:ring-0 focus-visible:ring-offset-0",
 										{
-											"border-red-500 placeholder:text-red-500": field.state.meta.errorMap.onSubmit,
+											"border-red-500 placeholder:text-red-500": field.state.meta.errors.length,
 										}
 									)}
 								/>
-								{field.state.meta.errorMap.onSubmit &&
-									typeof field.state.meta.errorMap.onSubmit ===
+								{field.state.meta.errors.length > 0 &&
+									typeof field.state.meta.errors[0] ===
 									"string" ? (
 									<em className="text-red-500 text-sm">
-										{field.state.meta.errorMap.onSubmit.split(", ")[0]}
+										{field.state.meta.errors[0].split(", ")[0]}
 									</em>
 								) : null}
 							</>
@@ -116,7 +117,7 @@ export const SignInCard = () => {
 					<Field
 						name="password"
 						validators={{
-							onSubmit: z
+							[isSubmitted ? 'onChange' : 'onSubmit']: z
 								.string()
 								.min(1, "Password is required")
 								.min(5, "Password must contain at least 5 characters")
@@ -183,21 +184,21 @@ export const SignInCard = () => {
 					<Subscribe
 						selector={(state) => [
 							state.canSubmit,
-							state.isSubmitting,
 						]}
 					>
-						{([canSubmit, isSubmitting]) => (
+						{([canSubmit]) => (
 							<Button
 								type="submit"
 								className="w-full"
 								size="lg"
-								disabled={!canSubmit || pending}
+								disabled={pending || !canSubmit}
+								onClick={() => setIsSubmitted(true)}
 							>
-								{isSubmitting || pending ?
+								{pending ?
 									<PulseLoader
 										color="white"
-										loading={pending}
-										size={10}
+										loading={true}
+										size={8}
 										aria-label="Loading Spinner"
 										data-testid="loader"
 									/>

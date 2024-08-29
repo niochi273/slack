@@ -1,5 +1,3 @@
-'use client'
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
 	DropdownMenu,
@@ -7,7 +5,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { useCurrentUser } from "./hooks/use-current-user"
+import { useCurrentUser } from "@/lib/use-current-user"
 import { Loader, LogOut } from "lucide-react"
 import { useAuthActions } from "@convex-dev/auth/react"
 
@@ -16,7 +14,7 @@ export const UserButton = () => {
 	const { data, isLoading } = useCurrentUser()
 
 	if (isLoading) {
-		return <Loader size={16} className="animate-spin text-muted-foreground" />
+		return <Loader size={30} className="animate-spin text-muted-foreground" />
 	}
 
 	if (!data) {
