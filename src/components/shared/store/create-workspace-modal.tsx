@@ -7,10 +7,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { useCreateWorkspaceModal } from "@/lib/use-create-workspace-modal"
+import { useCreateWorkspaceModal } from "@/lib/hooks/create-workspace-modal"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useCreateWorkspace } from "@/lib/use-create-workspace"
+import { useCreateWorkspace } from "@/lib/hooks/create-workspace"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"

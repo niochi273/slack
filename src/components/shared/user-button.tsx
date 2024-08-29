@@ -5,7 +5,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { useCurrentUser } from "@/lib/use-current-user"
+import { useCurrentUser } from "@/lib/hooks/get-user"
 import { Loader, LogOut } from "lucide-react"
 import { useAuthActions } from "@convex-dev/auth/react"
 
