@@ -1,6 +1,7 @@
 'use client'
 
-import Toolbar from "@/components/shared/toolbar";
+import Toolbar from "@/components/shared/workspace/toolbar";
+import Sidebar from "@/components/shared/workspace/sidebar";
 
 export default function WorkspaceIdLayout({ children }:
 	{ children: React.ReactNode }
@@ -8,7 +9,10 @@ export default function WorkspaceIdLayout({ children }:
 	return (
 		<div className="h-full">
 			<Toolbar />
-			{children}
+			<div className="flex h-[calc(100vh-40px)]">
+				<Sidebar />
+				{children}
+			</div>
 		</div>
 	)
 }

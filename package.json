@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "email": "email dev --dir src/app/emails"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",

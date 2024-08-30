@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { CreateWorkspaceModal } from "./store/create-workspace-modal"
+import { CreateWorkspaceModal } from "@/components/shared/store/create-workspace-modal"
 
 export const Modals = () => {
 	const [mounted, setMounted] = useState<boolean>(false);

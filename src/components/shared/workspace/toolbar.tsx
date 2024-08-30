@@ -1,7 +1,8 @@
 import { Info, Search } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { useWorkspaceId } from "@/lib/hooks/get-workspace-id"
 import { useGetWorkspace } from "@/lib/hooks/get-workspace";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 const Toolbar = () => {
 	const workspaceId = useWorkspaceId();

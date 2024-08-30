@@ -4,7 +4,7 @@ import { Id } from "../../../convex/_generated/dataModel";
 
 export const useGetWorkspace = ({ id }: { id: Id<"workspaces"> }) => {
   const data = useQuery(api.workspaces.getById, { id });
-  const isPending = data === undefined;
+  const isLoading = data === undefined;
 
-  return { data, isPending };
+  return { data, isLoading };
 };

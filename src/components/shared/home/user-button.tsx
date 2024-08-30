@@ -9,7 +9,7 @@ import { useCurrentUser } from "@/lib/hooks/get-user"
 import { Loader, LogOut } from "lucide-react"
 import { useAuthActions } from "@convex-dev/auth/react"
 
-export const UserButton = () => {
+const UserButton = () => {
 	const { signOut } = useAuthActions()
 	const { data, isLoading } = useCurrentUser()
 
@@ -43,3 +43,6 @@ export const UserButton = () => {
 		</DropdownMenu>
 	)
 }
+
+export default UserButton
+

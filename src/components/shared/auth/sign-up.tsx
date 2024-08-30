@@ -281,7 +281,7 @@ export const SignUpCard = () => {
 										aria-label="Loading Spinner"
 										data-testid="loader"
 									/>
-									: "Sign In"}
+									: "Sign Up"}
 							</Button>
 						)}
 					</Subscribe>
