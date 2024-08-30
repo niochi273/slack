@@ -1,6 +1,6 @@
 'use client'
 
-import UserButton from "@/components/shared/home/user-button"
+import UserButton from "@/components/shared/user-button"
 import { useCreateWorkspaceModal } from "@/lib/hooks/create-workspace-modal"
 
 import { useGetWorkspaces } from "@/lib/hooks/get-workspaces"

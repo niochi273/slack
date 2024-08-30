@@ -5,9 +5,9 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup
 } from "@/components/ui/resizable"
-import Toolbar from "@/components/shared/workspace/toolbar";
-import Sidebar from "@/components/shared/workspace/sidebar";
-import WorkspaceSidebar from "@/components/shared/workspace/workspace-sidebar";
+import Toolbar from "./components/toolbar";
+import Sidebar from "./components/sidebar";
+import WorkspaceSidebar from "./components/workspace-sidebar";
 
 export default function WorkspaceIdLayout({ children }:
 	{ children: React.ReactNode }

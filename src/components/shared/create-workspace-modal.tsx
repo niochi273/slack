@@ -5,7 +5,7 @@ import {
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
+	DialogDescription
 } from "@/components/ui/dialog"
 import { useCreateWorkspaceModal } from "@/lib/hooks/create-workspace-modal"
 import { Input } from "@/components/ui/input"
@@ -43,9 +43,8 @@ export const CreateWorkspaceModal = () => {
 		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>
-						Add a workspace
-					</DialogTitle>
+					<DialogTitle>Add a workspace</DialogTitle>
+					<DialogDescription>Come up with a name for your workspace</DialogDescription>
 				</DialogHeader>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<Input
@@ -55,6 +54,7 @@ export const CreateWorkspaceModal = () => {
 						required
 						autoFocus
 						minLength={3}
+						className="focus-visible:ring-0 focus-visible:ring-offset-0"
 						placeholder="Workspace name e.g. 'Work', 'Personal', 'Home'"
 					/>
 					<div className="flex justify-end">

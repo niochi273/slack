@@ -1,4 +1,4 @@
-import UserButton from "@/components/shared/home/user-button"
+import UserButton from "@/components/shared/user-button"
 import WorkspaceSwitcher from "./workspace-switcher"
 import SidebarButton from "./sidebar-button"
 import { Bell, Home, MessageSquare, MoreHorizontal } from "lucide-react"

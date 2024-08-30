@@ -1,4 +1,4 @@
-import { SignUpCard } from "@/components/shared/auth/sign-up";
+import { SignUpCard } from "@/app/auth/components/sign-up";
 
 export default function SignUp() {
 	return <SignUpCard />
