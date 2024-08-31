@@ -26,7 +26,6 @@ export default function WorkspaceIdLayout({ children }:
 						minSize={14}
 						className="bg-[#5E2C5F]"
 					>
-
 						<WorkspaceSidebar />
 					</ResizablePanel>
 					<ResizableHandle withHandle />

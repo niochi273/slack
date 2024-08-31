@@ -79,7 +79,7 @@ const PreferencesModal: FC<PreferencesModalProps> = ({ open, setOpen, initialVal
 				<DialogContent className="p-0 bg-gray-50 overflow-hidden">
 					<DialogHeader className="p-4 border-b bg-white">
 						<DialogTitle>Preferences</DialogTitle>
-						<DialogDescription>{value}</DialogDescription>
+						<DialogDescription>{initialValue}</DialogDescription>
 					</DialogHeader>
 					<div className="px-4 pb-4 flex flex-col gap-y-2">
 						<Dialog open={editOpen} onOpenChange={setEditOpen}>
