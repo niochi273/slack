@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { useWorkspaceId } from "@/lib/hooks/workspaces/get-id"
 import { useGetWorkspaces } from "@/lib/hooks/workspaces/get-all"
 import { useGetWorkspace } from "@/lib/hooks/workspaces/get"
-import { useCreateWorkspaceModal } from "@/lib/hooks/workspaces/create-modal"
+import { useCreateWorkspaceModal } from "@/lib/store/use-create-workspace-modal"
 import { Loader, Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 

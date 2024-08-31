@@ -2,15 +2,18 @@ import { AlertTriangle, HashIcon, Loader2, MessageSquareText, SendHorizonal } fr
 import { useCurrentMember } from "@/lib/hooks/members/get-current"
 import { useGetWorkspace } from "@/lib/hooks/workspaces/get"
 import { useWorkspaceId } from "@/lib/hooks/workspaces/get-id"
-import { useGetChannels } from "@/lib/hooks/get-channels"
+import { useGetChannels } from "@/lib/hooks/channels/get-all"
 import WorkspaceSection from "./workspace-section"
 import WorkspaceHeader from "./header"
 import SidebarItem from "./sidebar-item"
 import { useGetMembers } from "@/lib/hooks/members/get-all"
 import UserItem from "./user-item"
+import { useCreateChannelModal } from "@/lib/store/use-create-channel-modal"
 
 const WorkspaceSidebar = () => {
 	const workspaceId = useWorkspaceId()
+
+	const [_, setOpen] = useCreateChannelModal()
 
 	const { data: member, isLoading: memberLoading } = useCurrentMember({ workspaceId })
 	const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({ id: workspaceId })
@@ -56,7 +59,7 @@ const WorkspaceSidebar = () => {
 			<WorkspaceSection
 				label="Channels"
 				hint="New channel"
-				onNew={() => { }}
+				onNew={member.role === 'admin' ? () => setOpen(true) : undefined}
 			>
 				{channels?.map(item => (
 					<SidebarItem

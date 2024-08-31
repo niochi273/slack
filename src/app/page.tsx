@@ -1,7 +1,7 @@
 'use client'
 
 import UserButton from "@/components/shared/user-button"
-import { useCreateWorkspaceModal } from "@/lib/hooks/workspaces/create-modal"
+import { useCreateWorkspaceModal } from "@/lib/store/use-create-workspace-modal"
 
 import { useGetWorkspaces } from "@/lib/hooks/workspaces/get-all"
 import { useRouter } from "next/navigation"
