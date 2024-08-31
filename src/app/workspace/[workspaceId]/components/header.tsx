@@ -28,12 +28,12 @@ const WorkspaceHeader: FC<WorkspaceHeaderProps> = ({ workspace, isAdmin }) => {
 				setOpen={setPreferencesOpen}
 				initialValue={workspace.name}
 			/>
-			<div className="flex items-center justify-between px-4 h-[49px] gap-0.5">
+			<div className="flex items-center justify-between px-4 py-5 gap-x-1">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
 							variant="transparent"
-							className="font-semibold text-lg w-auto p-1.5 overflow-hidden"
+							className="font-semibold text-lg w-auto p-2 overflow-hidden focus-visible:ring-0 focus-visible:ring-offset-0 tracking-wide"
 							size="sm"
 						>
 							<span className="truncate">{workspace.name}</span>
@@ -70,7 +70,7 @@ const WorkspaceHeader: FC<WorkspaceHeaderProps> = ({ workspace, isAdmin }) => {
 						)}
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<div className="flex items-center gap-0.5">
+				<div className="flex items-center gap-x-1">
 					<Hint label="Filter conversations" side="bottom" >
 						<Button variant="transparent" size="iconSm">
 							<ListFilter size={16} />

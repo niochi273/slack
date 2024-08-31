@@ -10,14 +10,14 @@ import {
 	DialogClose,
 	DialogFooter
 } from "@/components/ui/dialog"
-import { useRemoveWorkspace } from "@/lib/hooks/remove-workspace"
-import { useUpdateWorkspace } from "@/lib/hooks/update-workspace"
-import { useWorkspaceId } from "@/lib/hooks/get-workspace-id"
+import { useRemoveWorkspace } from "@/lib/hooks/workspaces/remove"
+import { useUpdateWorkspace } from "@/lib/hooks/workspaces/update"
+import { useWorkspaceId } from "@/lib/hooks/workspaces/get-id"
 import { useRouter } from "next/navigation"
 import { TrashIcon } from "lucide-react"
 import { FC, useState } from "react"
 import { toast } from "sonner"
-import { useConfirm } from "@/lib/hooks/confirm"
+import { useConfirm } from "@/components/shared/confirm"
 
 
 interface PreferencesModalProps {

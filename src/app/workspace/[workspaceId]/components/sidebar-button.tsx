@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import clsx from "clsx"
+import { IconType } from "react-icons/lib"
 import { LucideIcon } from "lucide-react"
 import { FC } from "react"
-import { IconType } from "react-icons/lib"
+import clsx from "clsx"
 
 interface SidebarButtnoProps {
 	icon: LucideIcon | IconType

@@ -7,10 +7,10 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { useWorkspaceId } from "@/lib/hooks/get-workspace-id"
-import { useGetWorkspaces } from "@/lib/hooks/get-workspaces"
-import { useGetWorkspace } from "@/lib/hooks/get-workspace"
-import { useCreateWorkspaceModal } from "@/lib/hooks/create-workspace-modal"
+import { useWorkspaceId } from "@/lib/hooks/workspaces/get-id"
+import { useGetWorkspaces } from "@/lib/hooks/workspaces/get-all"
+import { useGetWorkspace } from "@/lib/hooks/workspaces/get"
+import { useCreateWorkspaceModal } from "@/lib/hooks/workspaces/create-modal"
 import { Loader, Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 
