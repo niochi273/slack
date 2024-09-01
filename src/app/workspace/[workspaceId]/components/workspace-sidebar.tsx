@@ -9,9 +9,11 @@ import SidebarItem from "./sidebar-item"
 import { useGetMembers } from "@/lib/hooks/members/get-all"
 import UserItem from "./user-item"
 import { useCreateChannelModal } from "@/lib/store/use-create-channel-modal"
+import { useChannelId } from "@/lib/hooks/channels/get-id"
 
 const WorkspaceSidebar = () => {
 	const workspaceId = useWorkspaceId()
+	const channelId = useChannelId()
 
 	const [_, setOpen] = useCreateChannelModal()
 
@@ -20,7 +22,7 @@ const WorkspaceSidebar = () => {
 	const { data: channels, isLoading: channelsLoading } = useGetChannels({ workspaceId })
 	const { data: members, isLoading: membersLoading } = useGetMembers({ workspaceId })
 
-	if (workspaceLoading || memberLoading) {
+	if (workspaceLoading || memberLoading || membersLoading || channelsLoading) {
 		return (
 			<div className="flex flex-col bg-[#5E2C5F] h-full items-center justify-center">
 				<Loader2 size={20} className="animate-spin text-white" />
@@ -40,7 +42,7 @@ const WorkspaceSidebar = () => {
 	}
 
 	return (
-		<div className="flex flex-col bg-[#5E2C5F] h-full space-y-2">
+		<div className="flex flex-col bg-[#5E2C5F] h-full gap-y-2.5">
 			<WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
 			<div className="flex flex-col px-2 gap-y-1">
 				<SidebarItem
@@ -67,6 +69,7 @@ const WorkspaceSidebar = () => {
 						id={item._id}
 						label={item.name}
 						icon={HashIcon}
+						variant={channelId === item._id ? "active" : "default"}
 					/>
 				))}
 			</WorkspaceSection>

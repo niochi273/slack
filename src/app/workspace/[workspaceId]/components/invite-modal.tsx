@@ -73,7 +73,7 @@ const InviteModal: FC<InviteModalProps> = ({
 					<DialogHeader>
 						<DialogTitle>Invite people to {name}</DialogTitle>
 						<DialogDescription>
-							Use a code below to invite people to your workspace
+							Send a invitation link to your friend with the code below for joining you workspace
 						</DialogDescription>
 					</DialogHeader>
 					<div className="flex flex-col gap-y-4 items-center justify-center py-4">

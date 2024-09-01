@@ -5,6 +5,7 @@ import { Hint } from "@/components/ui/hint"
 import { Plus } from "lucide-react"
 import { FC } from "react"
 import clsx from "clsx"
+import { cn } from "@/lib/utils"
 
 interface WorkspaceSectionProps {
 	children: React.ReactNode,
@@ -17,8 +18,8 @@ const WorkspaceSection: FC<WorkspaceSectionProps> = ({ children, label, hint, on
 	const [on, toggle] = useToggle(true)
 
 	return (
-		<div className="flex flex-col mt-3 px-2 py-1">
-			<div className="flex item-center px-3.5 group">
+		<div className="flex flex-col px-2 py-1">
+			<div className={cn("flex item-center px-3.5 group", on && "mb-2")}>
 				<Button
 					variant="transparent"
 					className="p-0.5 text-sm text-[#f9edffcc] shrink-0 size-6"
@@ -43,7 +44,9 @@ const WorkspaceSection: FC<WorkspaceSectionProps> = ({ children, label, hint, on
 					</Button>
 				</Hint>}
 			</div>
-			{on && children}
+			<div className="flex flex-col gap-y-1">
+				{on && children}
+			</div>
 		</div>
 	)
 }

@@ -27,10 +27,11 @@ export default function JoinPage({ params }: { params: { workspaceId: Id<"worksp
 		}
 	}, [isMember, router, workspaceId])
 
+	const mutation = useMutation(api.workspaces.join);
+
 	const handleComplete = async (value: string) => {
 		try {
 			setIsPending(true)
-			const mutation = useMutation(api.workspaces.join);
 			const response = await mutation({ workspaceId, joinCode: value });
 
 			if (response) {

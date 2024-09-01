@@ -7,7 +7,7 @@ import { FC } from "react";
 import Link from "next/link";
 
 const sidebarItemVariants = cva(
-	'flex items-center gap-x-1.5 font-normal justify-start h-9 text-sm px-[18px] overflow-hidden',
+	'flex items-center gap-x-1.5 font-normal justify-start h-8 text-sm px-[18px] overflow-hidden',
 	{
 		variants: {
 			variant: {

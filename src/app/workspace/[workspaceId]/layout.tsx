@@ -22,14 +22,14 @@ export default function WorkspaceIdLayout({ children }:
 					autoSaveId="workspace-layout"
 				>
 					<ResizablePanel
-						defaultSize={20}
-						minSize={14}
+						defaultSize={25}
+						minSize={20}
 						className="bg-[#5E2C5F]"
 					>
 						<WorkspaceSidebar />
 					</ResizablePanel>
 					<ResizableHandle withHandle />
-					<ResizablePanel minSize={20}>
+					<ResizablePanel minSize={20} defaultSize={75}>
 						{children}
 					</ResizablePanel>
 				</ResizablePanelGroup>

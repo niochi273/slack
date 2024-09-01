@@ -36,7 +36,7 @@ const WorkspaceHeader: FC<WorkspaceHeaderProps> = ({ workspace, isAdmin }) => {
 				setOpen={setPreferencesOpen}
 				initialValue={workspace.name}
 			/>
-			<div className="flex items-center justify-between px-4 py-5 gap-x-1">
+			<div className="flex items-center justify-between px-4 pt-5 gap-x-1">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
