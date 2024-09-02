@@ -70,6 +70,7 @@ export default function JoinPage({ params }: { params: { workspaceId: Id<"worksp
 					pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
 					onComplete={handleComplete}
 					disabled={isPending}
+					spellCheck="false"
 					autoFocus
 				>
 					<InputOTPGroup>
