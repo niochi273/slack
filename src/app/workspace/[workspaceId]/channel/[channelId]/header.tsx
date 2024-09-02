@@ -79,7 +79,7 @@ const Header = ({ title }: { title: string }) => {
 			<div className="bg-white border-b h-[49px] flex items-center px-4 overflow-hidden">
 				<Button
 					variant="ghost"
-					className="text-lg font-semibold px-2 overflow-hidden w-auto cursor-default"
+					className="text-lg font-semibold px-2 overflow-hidden w-auto cursor-default hover:bg-transparent"
 				>
 					<span className="truncate"># {title}</span>
 				</Button>

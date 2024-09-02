@@ -4,10 +4,13 @@ import { useRef, useEffect, FC, MutableRefObject, useLayoutEffect, useState } fr
 import { Button } from '../ui/button'
 import { PiTextAa } from 'react-icons/pi'
 import { MdSend } from 'react-icons/md'
-import { ImageIcon, Smile } from 'lucide-react'
+import { ImageIcon, Smile, XIcon } from 'lucide-react'
 import { Hint } from '../ui/hint'
 import { Delta, Op } from 'quill/core'
 import clsx from "clsx"
+import { cn } from "@/lib/utils"
+import EmojiPopover from "@/app/workspace/[workspaceId]/channel/[channelId]/emoji-popover"
+import Image from "next/image"
 
 type EditorValue = {
 	image: File | null
@@ -34,6 +37,7 @@ const Editor: FC<EditorProps> = ({
 	innerRef
 }) => {
 	const [text, setText] = useState<string>("")
+	const [image, setImage] = useState<File | null>(null)
 	const [isToolbarVisible, setIsToolbarVisible] = useState<boolean>(true)
 
 	const containterRef = useRef<HTMLDivElement | null>(null)
@@ -42,7 +46,7 @@ const Editor: FC<EditorProps> = ({
 	const quillRef = useRef<Quill | null>(null)
 	const defaultValueRef = useRef(defaultValue)
 	const disabledRef = useRef(disabled)
-
+	const imageRef = useRef<HTMLInputElement | null>(null)
 
 	useLayoutEffect(() => {
 		submitRef.current = onSubmit;
@@ -119,13 +123,48 @@ const Editor: FC<EditorProps> = ({
 		}
 	}
 
+	const onEmojiSelect = (emoji: any) => {
+		const quill = quillRef.current
+		quill?.insertText(quill.getSelection()?.index || 0, emoji.native)
+	}
+
 	const isEmpty = text.replace(/<(.|\n)*?>/g, "").trim().length === 0
 
 
 	return (
 		<div className="flex flex-col">
+			<input
+				type="file"
+				accept="image/*"
+				ref={imageRef}
+				onChange={event => setImage(event.target.files![0])}
+				className="hidden"
+			/>
 			<div className="flex flex-col border border-slate-200 rounded-md overflow-hidden focus-within:border-slate-300 focus-within:shadow-sm transition bg-white">
 				<div spellCheck="false" ref={containterRef} className='h-full ql-custom' />
+				{!!image && (
+					<div className="p-2">
+						<div className="relative size-[62px] flex items-center justify-center group/image">
+							<Hint label="Remove image">
+								<button
+									onClick={() => {
+										setImage(null)
+										imageRef.current!.value = ""
+									}}
+									className="hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[4] border-2 border-white items-center justify-center"
+								>
+									<XIcon size={14} />
+								</button>
+							</Hint>
+							<Image
+								src={URL.createObjectURL(image)}
+								alt="Uploaded"
+								fill
+								className="rounded-xl overflow-hidden border object-cover"
+							/>
+						</div>
+					</div>
+				)}
 				<div className='flex px-2 pb-2 z-[5]'>
 					<Hint label={isToolbarVisible ? "Hide formatting" : "Show formatting"}>
 						<Button
@@ -137,23 +176,22 @@ const Editor: FC<EditorProps> = ({
 							<PiTextAa size={16} />
 						</Button>
 					</Hint>
-					<Hint label='Emoji'>
+					<EmojiPopover onEmojiSelect={onEmojiSelect}>
 						<Button
 							disabled={disabled}
 							size="iconSm"
 							variant="ghost"
-							onClick={() => { }}
 						>
 							<Smile size={16} />
 						</Button>
-					</Hint>
+					</EmojiPopover>
 					{variant === 'create' && (
 						<Hint label='Image'>
 							<Button
 								disabled={disabled}
 								size="iconSm"
 								variant="ghost"
-								onClick={() => { }}
+								onClick={() => imageRef.current?.click()}
 							>
 								<ImageIcon size={16} />
 							</Button>
@@ -195,11 +233,15 @@ const Editor: FC<EditorProps> = ({
 					)}
 				</div>
 			</div>
-			<div className='p-2 text-[10px] text-muted-foreground flex justify-end'>
-				<p>
-					<strong>Shift + Return</strong> to add a new line
-				</p>
-			</div>
+			{variant === "create" && (
+				<div className={cn('p-2 text-[10px] text-muted-foreground flex justify-end opacity-0 transition-opacity',
+					!isEmpty && 'opacity-100'
+				)}>
+					<p>
+						<strong>Shift + Return</strong> to add a new line
+					</p>
+				</div>
+			)}
 		</div>
 	)
 }

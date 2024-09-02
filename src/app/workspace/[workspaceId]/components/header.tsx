@@ -23,6 +23,32 @@ const WorkspaceHeader: FC<WorkspaceHeaderProps> = ({ workspace, isAdmin }) => {
 	const [preferencesOpen, setPreferencesOpen] = useState<boolean>(false)
 	const [inviteOpen, setInviteOpen] = useState<boolean>(false)
 
+	if (!isAdmin) {
+		return (
+			<div className="flex items-center justify-between px-4 pt-5 gap-x-1">
+				<Button
+					variant="transparent"
+					className="font-semibold hover:bg-transparent text-lg w-auto p-2 overflow-hidden focus-visible:ring-0 focus-visible:ring-offset-0 tracking-wide cursor-default"
+					size="sm"
+				>
+					<span className="truncate">{workspace.name}</span>
+				</Button>
+				<div className="flex items-center gap-x-1">
+					<Hint label="Filter conversations" side="bottom" >
+						<Button variant="transparent" size="iconSm">
+							<ListFilter size={16} />
+						</Button>
+					</Hint>
+					<Hint label="New message" side="bottom" >
+						<Button variant="transparent" size="iconSm">
+							<SquarePen size={16} />
+						</Button>
+					</Hint>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<>
 			<InviteModal
@@ -58,24 +84,20 @@ const WorkspaceHeader: FC<WorkspaceHeaderProps> = ({ workspace, isAdmin }) => {
 								<p className="text-xs text-muted-foreground">Active workspace</p>
 							</div>
 						</DropdownMenuItem>
-						{isAdmin && (
-							<>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem
-									className="cursor-pointer py-2"
-									onClick={() => setInviteOpen(true)}
-								>
-									Invite people to {workspace.name}
-								</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem
-									className="cursor-pointer py-2"
-									onClick={() => setPreferencesOpen(true)}
-								>
-									Preferences
-								</DropdownMenuItem>
-							</>
-						)}
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							className="cursor-pointer py-2"
+							onClick={() => setInviteOpen(true)}
+						>
+							Invite people to {workspace.name}
+						</DropdownMenuItem>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							className="cursor-pointer py-2"
+							onClick={() => setPreferencesOpen(true)}
+						>
+							Preferences
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<div className="flex items-center gap-x-1">
