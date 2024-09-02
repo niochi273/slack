@@ -1,4 +1,4 @@
-import { AlertTriangle, HashIcon, Loader2, MessageSquareText, SendHorizonal } from "lucide-react"
+import { AlertTriangle, HashIcon, Loader, Loader2, MessageSquareText, SendHorizonal } from "lucide-react"
 import { useCurrentMember } from "@/lib/hooks/members/get-current"
 import { useGetWorkspace } from "@/lib/hooks/workspaces/get"
 import { useWorkspaceId } from "@/lib/hooks/workspaces/get-id"
@@ -25,7 +25,7 @@ const WorkspaceSidebar = () => {
 	if (workspaceLoading || memberLoading || membersLoading || channelsLoading) {
 		return (
 			<div className="flex flex-col bg-[#5E2C5F] h-full items-center justify-center">
-				<Loader2 size={20} className="animate-spin text-white" />
+				<Loader size={20} className="animate-spin text-white" />
 			</div>
 		)
 	}
@@ -34,9 +34,7 @@ const WorkspaceSidebar = () => {
 		return (
 			<div className="flex flex-col bg-[#5E2C5F] h-full items-center justify-center">
 				<AlertTriangle size={20} color="white" />
-				<p className="text-white text-sm">
-					Workspace not found
-				</p>
+				<p className="text-white text-sm">Workspace not found</p>
 			</div>
 		)
 	}
