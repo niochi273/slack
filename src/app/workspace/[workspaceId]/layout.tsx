@@ -23,7 +23,7 @@ export default function WorkspaceIdLayout({ children }:
 				>
 					<ResizablePanel
 						defaultSize={25}
-						minSize={20}
+						minSize={15}
 						className="bg-[#5E2C5F]"
 					>
 						<WorkspaceSidebar />

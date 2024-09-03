@@ -24,7 +24,7 @@ const SidebarButton: FC<SidebarButtnoProps> = ({
 				}
 			)}
 			>
-				<Icon size={20} className="text-white group-hover:scale-110 transition-all" />
+				<Icon size={20} className="text-white group-hover:scale-110 transition-transform duration-200 ease-out" />
 			</Button>
 			<span className="text-[11px] text-white group-hover:text-accent">
 				{label}

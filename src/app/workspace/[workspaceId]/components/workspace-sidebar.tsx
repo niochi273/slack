@@ -24,7 +24,7 @@ const WorkspaceSidebar = () => {
 
 	if (workspaceLoading || memberLoading || membersLoading || channelsLoading) {
 		return (
-			<div className="flex flex-col bg-[#5E2C5F] h-full items-center justify-center">
+			<div className="flex flex-col bg-[#562458] h-full items-center justify-center">
 				<Loader size={20} className="animate-spin text-white" />
 			</div>
 		)
@@ -32,7 +32,7 @@ const WorkspaceSidebar = () => {
 
 	if (!workspace || !member) {
 		return (
-			<div className="flex flex-col bg-[#5E2C5F] h-full items-center justify-center">
+			<div className="flex flex-col bg-[#562458] h-full items-center justify-center">
 				<AlertTriangle size={20} color="white" />
 				<p className="text-white text-sm">Workspace not found</p>
 			</div>
@@ -40,7 +40,7 @@ const WorkspaceSidebar = () => {
 	}
 
 	return (
-		<div className="flex flex-col bg-[#5E2C5F] h-full gap-y-2.5">
+		<div className="flex flex-col bg-[#562458] h-full gap-y-2.5">
 			<WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
 			<div className="flex flex-col px-2 gap-y-1">
 				<SidebarItem
