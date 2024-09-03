@@ -36,7 +36,7 @@ const UserItem: FC<UserItemProps> = ({
 	variant
 }) => {
 	const workspaceId = useWorkspaceId()
-	const avatrFallback = label.charAt(0).toUpperCase()
+	const avatarFallback = label.charAt(0).toUpperCase()
 
 	return (
 		<Button
@@ -48,7 +48,7 @@ const UserItem: FC<UserItemProps> = ({
 			<Link href={`/workspace/${workspaceId}/member/${id}`}>
 				<Avatar className="size-5 mr-1">
 					<AvatarImage src={image} />
-					<AvatarFallback>{avatrFallback}</AvatarFallback>
+					<AvatarFallback>{avatarFallback}</AvatarFallback>
 				</Avatar>
 				<span className="text-sm truncate">{label}</span>
 			</Link>

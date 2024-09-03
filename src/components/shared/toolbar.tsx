@@ -44,6 +44,7 @@ const Toolbar: FC<ToolbarProps> = ({
 							variant="ghost"
 							size="iconSm"
 							disabled={isPending}
+							onClick={handleThread}
 						>
 							<MessageSquareText size={16} />
 						</Button>
@@ -56,6 +57,7 @@ const Toolbar: FC<ToolbarProps> = ({
 								variant="ghost"
 								size="iconSm"
 								disabled={isPending}
+								onClick={handleEdit}
 							>
 								<Pencil size={16} />
 							</Button>
@@ -65,6 +67,7 @@ const Toolbar: FC<ToolbarProps> = ({
 								variant="ghost"
 								size="iconSm"
 								disabled={isPending}
+								onClick={handleDelete}
 							>
 								<Trash size={16} />
 							</Button>
