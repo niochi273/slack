@@ -11,6 +11,8 @@ import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { useConfirm } from "./confirm"
 import { useRemoveMessage } from "@/lib/hooks/messages/remove"
+import { useToggleReaction } from "@/lib/hooks/reactions/toggle"
+import Reactions from "./reactions"
 
 const Renderer = dynamic(() => import("@/components/shared/renderer"), { ssr: false })
 const Editor = dynamic(() => import("@/components/shared/editor"), { ssr: false })
@@ -70,6 +72,15 @@ const Message: FC<MessageProps> = ({
 
 	const { mutate: updateMessage, isPending: isUpdatingMessage } = useUpdateMessage()
 	const { mutate: removeMessage, isPending: isRemovingMessage } = useRemoveMessage()
+	const { mutate: toggleReaction, isPending: isTogglingReaction } = useToggleReaction()
+
+	const handleReaction = (value: string) => {
+		toggleReaction({ messageId: id, value }, {
+			onError: () => {
+				toast.error("Failed to toggle reaction")
+			}
+		})
+	}
 
 	const isPending = isUpdatingMessage;
 
@@ -129,6 +140,7 @@ const Message: FC<MessageProps> = ({
 										(edited)
 									</span>
 								) : null}
+								<Reactions data={reactions} onChange={handleReaction} />
 							</div>
 						)}
 					</div>
@@ -139,7 +151,7 @@ const Message: FC<MessageProps> = ({
 							handleEdit={() => setEditingId(id)}
 							handleThread={() => { }}
 							handleDelete={handleDelete}
-							handleReaction={() => { }}
+							handleReaction={handleReaction}
 							hideThreadButton={hideThreadButton}
 						/>
 					)}
@@ -196,6 +208,7 @@ const Message: FC<MessageProps> = ({
 									(edited)
 								</span>
 							) : null}
+							<Reactions data={reactions} onChange={handleReaction} />
 						</div>
 					)}
 				</div>
@@ -206,7 +219,7 @@ const Message: FC<MessageProps> = ({
 						handleEdit={() => setEditingId(id)}
 						handleThread={() => { }}
 						handleDelete={handleDelete}
-						handleReaction={() => { }}
+						handleReaction={handleReaction}
 						hideThreadButton={hideThreadButton}
 					/>
 				)}
