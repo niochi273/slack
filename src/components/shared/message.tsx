@@ -13,6 +13,8 @@ import { useConfirm } from "./confirm"
 import { useRemoveMessage } from "@/lib/hooks/messages/remove"
 import { useToggleReaction } from "@/lib/hooks/reactions/toggle"
 import Reactions from "./reactions"
+import { usePageLeave } from "react-use"
+import { usePanel } from "@/lib/hooks/use-panel"
 
 const Renderer = dynamic(() => import("@/components/shared/renderer"), { ssr: false })
 const Editor = dynamic(() => import("@/components/shared/editor"), { ssr: false })
@@ -63,6 +65,8 @@ const Message: FC<MessageProps> = ({
 	threadImage,
 	threadTimestamp
 }) => {
+	const { parentMessageId, onOpenMessage, onClose } = usePanel()
+
 	const [ConfirmDialog, confirm] = useConfirm(
 		"Delete message",
 		"Are you sure you want to delete this message? The action is irreversible"
@@ -90,6 +94,11 @@ const Message: FC<MessageProps> = ({
 		if (!ok) return
 
 		removeMessage({ id }, {
+			onSuccess: () => {
+				if (parentMessageId === id) {
+					onClose()
+				}
+			},
 			onError: () => {
 				toast.error("Failed to delete message")
 			}
@@ -149,7 +158,7 @@ const Message: FC<MessageProps> = ({
 							isAuthor={isAuthor}
 							isPending={isPending}
 							handleEdit={() => setEditingId(id)}
-							handleThread={() => { }}
+							handleThread={() => onOpenMessage(id)}
 							handleDelete={handleDelete}
 							handleReaction={handleReaction}
 							hideThreadButton={hideThreadButton}
@@ -217,7 +226,7 @@ const Message: FC<MessageProps> = ({
 						isAuthor={isAuthor}
 						isPending={isPending}
 						handleEdit={() => setEditingId(id)}
-						handleThread={() => { }}
+						handleThread={() => onOpenMessage(id)}
 						handleDelete={handleDelete}
 						handleReaction={handleReaction}
 						hideThreadButton={hideThreadButton}
